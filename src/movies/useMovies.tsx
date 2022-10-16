@@ -15,7 +15,11 @@ export function useMoviesCollection(): [MoviesState, React.Dispatch<MoviesAction
   const movieReducer = (state: MoviesState, action: MoviesAction): MoviesState => {
     switch (action.type) {
       case 'fetch':
-        return { ...state };
+        return {
+          ...state,
+          movies: action.payload.data,
+          initialized:true
+        };
 
       case 'add':
         return { ...state };
@@ -38,6 +42,15 @@ export function useMoviesCollection(): [MoviesState, React.Dispatch<MoviesAction
 
   useEffect(() => {
     // TODO: Call fetch action
+    getMovies().
+      then(res => {
+        dispatch({
+          type: 'fetch',
+          payload: {
+            data: res
+          }
+        });
+      })
   }, []);
 
   return [state, dispatch];

@@ -37,7 +37,9 @@ export function useMoviesCollection(): [MoviesState, React.Dispatch<MoviesAction
         };
 
       case 'rate':
-        return { ...state };
+        return { ...state ,
+          movies : state.movies.map(movie =>  { if (movie.id === action.payload.movieId) { movie.ratings.push(action.payload.rating); } return movie })
+        };
 
       default:
         return state

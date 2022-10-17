@@ -12,8 +12,15 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     const { moviesDispatch } = useMovies();
 
     // TODO: implement required functionality
-    const handleRate = (id:String,rating:number) => {
-        console.log(id,rating);
+    const handleRate = (id:string,rating:number) => {
+        //console.log(id,rating);
+        moviesDispatch({
+            type: 'rate',
+            payload: {
+                movieId : id ,
+                rating : rating
+            }
+          });
     }
 
     const onDeletion = (id : string) => {
@@ -42,7 +49,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             <div className="card-footer">
                 <div className="clearfix">
                 <div className="float-left mt-1">
-                    <StarRating rating={getAvgRating(movie)} onRate={function (rating: number): void { handleRate(movie.id,rating); } }/>
+                    <StarRating rating={getAvgRating(movie)} onRate={(rating: number) => { handleRate(movie.id,rating); } }/>
                 </div>
                 <div data-testid="movie-rating" className="card-footer-badge float-right badge badge-primary badge-pill">{ getAvgRating(movie) }</div>
                 </div>

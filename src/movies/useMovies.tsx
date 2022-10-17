@@ -32,7 +32,9 @@ export function useMoviesCollection(): [MoviesState, React.Dispatch<MoviesAction
           };
 
       case 'delete':
-        return { ...state };
+        return { ...state ,
+          movies : state.movies.filter(movie => movie.id !== action.payload.movieId)
+        };
 
       case 'rate':
         return { ...state };

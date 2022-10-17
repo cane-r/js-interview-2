@@ -16,6 +16,15 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         console.log(id,rating);
     }
 
+    const onDeletion = (id : string) => {
+        moviesDispatch({
+            type: 'delete',
+            payload: {
+                movieId : id ,
+            }
+          });
+    }
+
     return (
         <div data-testid={`movie-item-${movie.id}`}>
             <img className="card-img-top" alt="" src={movie.imageUrl} />
@@ -28,7 +37,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
                     {movie.description}
                 </p>
                 {/* TODO: Implement delete functionality */}
-                <Button>Delete</Button>
+                <Button onClick={ () => onDeletion(movie.id) }>Delete</Button>
             </div>
             <div className="card-footer">
                 <div className="clearfix">

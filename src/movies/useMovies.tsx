@@ -21,8 +21,15 @@ export function useMoviesCollection(): [MoviesState, React.Dispatch<MoviesAction
           initialized:true
         };
 
-      case 'add':
-        return { ...state };
+        case 'add':
+          return {
+            ...state,
+            movies: [...state.movies, {
+              ...action.payload.movie,
+              id: uuid(),
+              ratings: []
+            }]
+          };
 
       case 'delete':
         return { ...state };

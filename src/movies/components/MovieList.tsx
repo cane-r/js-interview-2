@@ -13,18 +13,28 @@ export const MovieList = () => {
   const { movies, moviesDispatch } = useMovies();
   const [displayOptionType, setDisplayOptionType] = useState('button');
 
-  // TODO: Display list of movies
-  
+  const handleSubmission = (data: Record<"imageUrl" | "title" | "subtitle" | "description", string>) => {
+    //console.log(movie);
+    //now here do smt with data
+    moviesDispatch({
+      type: 'add',
+      payload: {
+        movie : data ,
+      }
+    });
+    setDisplayOptionType('button');
+  }
+
   return (
     <div className="card-deck">
       {movies.map(movie => (
         <Card key={movie.id}>
           <MovieCard key={movie.id} movie={movie} />
-        </Card>      
+        </Card>
       ))}
       <Card>
-        {/* TODO: Implement displaying appropriate card for add movie - button or form */}
-        {/* TODO: use AddMovieButton and AddMovieForm */}
+        {displayOptionType === 'form' ? <AddMovieForm onSubmit={handleSubmission} onCancel={() => { setDisplayOptionType('button'); }} /> : ''}
+        {displayOptionType !== 'form' ? <AddMovieButton onClick={() => { displayOptionType !== 'form' ? setDisplayOptionType('form') : setDisplayOptionType('button') }} /> : ''}
       </Card>
     </div>
   );
